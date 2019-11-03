@@ -1,5 +1,6 @@
 import abc
 import random
+from problems import ArithmeticProblemGenerator
 
 
 class Pokemon:
@@ -17,35 +18,23 @@ active_pokemon = random.choice(pokemon_list)
 
 print("Your opponent sent out " + active_pokemon.name)
 
+ps = ArithmeticProblemGenerator(1, 1000)
+
 while active_pokemon.hp > 0:
 
+    p = ps.get_problem()
     print("Your opponent's " + active_pokemon.name + " has " + str(active_pokemon.hp) + " health left")
+    print(p.display_problem())
 
-    x1 = random.randint(1, 1000)
-    #x2 = random.randint(1, 100)
-    x2 = random.randint(1, 1000)
-
-    # eventually this will be a dict to a tuple of (symbol, (f: x, y -> x, y, solution))
-    op_char = random.choice(['+','-'])
-    operation = {
-        '+': lambda x,y: [x, y, x+y],
-        '-': lambda x,y: [max(x,y), min(x,y), max(x,y)-min(x,y)]
-    }
-
-    x1, x2, result = operation[op_char](x1, x2)
-
-    print(str(x1) + op_char + str(x2) + " = ?")
-
-    x3 = 'placeholder'
-
-    while not x3.isnumeric():
-        x3 = input("Your answer: ")
-    if int(x3) == result:
+    x = 'answer'
+    while not x.isnumeric():
+        x = input("Your answer: ")
+    if p.check_answer(int(x)):
         print("Awesome, that's right!")
         print("Your opponent's " + active_pokemon.name + " takes 10 damage.")
         active_pokemon.hp -= 10
     else:
-        print("Whoops... the right answer was: " + str(result))
+        print("Whoops... the right answer was: " + p.display_answer())
         print("Mewtwo, you take 10 damage.")
     print("")
 
