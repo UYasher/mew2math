@@ -1,3 +1,4 @@
+import abc
 import random
 
 
@@ -5,6 +6,7 @@ class Pokemon:
     def __init__(self, name, hp):
         self.name = name
         self.hp = hp
+
 
 print('Mewtwo Gx, you need addition to win this battle!')
 
@@ -19,10 +21,11 @@ while active_pokemon.hp > 0:
 
     print("Your opponent's " + active_pokemon.name + " has " + str(active_pokemon.hp) + " health left")
 
-    x1 = random.randint(1, 100)
+    x1 = random.randint(1, 1000)
     #x2 = random.randint(1, 100)
-    x2 = random.randint(1,9)
+    x2 = random.randint(1, 1000)
 
+    # eventually this will be a dict to a tuple of (symbol, (f: x, y -> x, y, solution))
     op_char = random.choice(['+','-'])
     operation = {
         '+': lambda x,y: [x, y, x+y],
@@ -32,7 +35,11 @@ while active_pokemon.hp > 0:
     x1, x2, result = operation[op_char](x1, x2)
 
     print(str(x1) + op_char + str(x2) + " = ?")
-    x3 = input("Your answer: ")
+
+    x3 = 'placeholder'
+
+    while not x3.isnumeric():
+        x3 = input("Your answer: ")
     if int(x3) == result:
         print("Awesome, that's right!")
         print("Your opponent's " + active_pokemon.name + " takes 10 damage.")
