@@ -1,7 +1,7 @@
 import abc
 import random
 from problems import ArithmeticProblemGenerator
-
+import time
 
 class Pokemon:
     def __init__(self, name, hp):
@@ -12,13 +12,15 @@ class Pokemon:
 print('Mewtwo Gx, you need addition to win this battle!')
 
 #pokemon_list = [Pokemon("Bulbasaur", 100), Pokemon("Charmander", 100), Pokemon("Squirtle", 100)]
-pokemon_list = [Pokemon("Zekrom", 300)]
+pokemon_list = [Pokemon("Zekrom", 80)]
 
 active_pokemon = random.choice(pokemon_list)
 
 print("Your opponent sent out " + active_pokemon.name)
 
 ps = ArithmeticProblemGenerator(1, 1000)
+
+start_time = time.time()
 
 while active_pokemon.hp > 0:
 
@@ -40,3 +42,4 @@ while active_pokemon.hp > 0:
 
 print("Your opponent's " + active_pokemon.name + " fainted!")
 print("You win!")
+print("--- %s seconds ---" % (time.time() - start_time))
